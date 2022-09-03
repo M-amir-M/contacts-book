@@ -122,4 +122,27 @@ class ApiService {
       queryParameters: paramaters,
     );
   }
+
+  Future<Result> editContact(String id,{Map<String, dynamic>? data}) async {
+    return await _dio!.requestApi(
+      ApiPath.editContact.replaceAll("{id}", id),
+      DioProvider.PUT_METHOD,
+      data: data,
+    );
+  }
+
+  Future<Result> createContact({Map<String, dynamic>? data}) async {
+    return await _dio!.requestApi(
+      ApiPath.createContact,
+      DioProvider.POST_METHOD,
+      data: data,
+    );
+  }
+  
+  Future<Result> deleteContact(String id) async {
+    return await _dio!.requestApi(
+      ApiPath.deleteContact.replaceAll("{id}", id),
+      DioProvider.DELETE_METHOD,
+    );
+  }
 }

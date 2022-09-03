@@ -23,7 +23,9 @@ class _ContactListPageState extends State<ContactListPage> {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: Icon(Iconsax.add),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(RoutePath.editNewCntact.replaceAll(":id", "new"));
+          },
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +112,7 @@ class _ContactListPageState extends State<ContactListPage> {
                   return InkWell(
                     onTap: () {
                       Get.toNamed(RoutePath.contactDetail
-                          .replaceAll("{id}", "${contact.id}"));
+                          .replaceAll(":id", "${contact.id}"));
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(

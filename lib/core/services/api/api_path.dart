@@ -1,4 +1,3 @@
-
 class ApiPath {
   //private constructor
   ApiPath._();
@@ -14,5 +13,7 @@ class ApiPath {
 
   // Contacts
   static const String contactList = '/contacts';
-  
+  static const String createContact = '/contacts';
+  static const String editContact = '/contacts/{id}';
+  static const String deleteContact = '/contacts/{id}';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:stdev/core/data/models/contact.dart';
+import 'package:stdev/core/routes/route_path.dart';
 import 'package:stdev/core/viewmodels/contact_detail.dart';
 import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/ui/screens/base_view.dart';
@@ -39,7 +40,12 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: optionMenu(),
+                      icon: optionMenu(
+                          onDelete: () {},
+                          onEdit: () {
+                            Get.toNamed(RoutePath.editNewCntact
+                                .replaceAll(":id", model.contact!.id!));
+                          }),
                     ),
                   ],
                 ),
@@ -160,14 +166,20 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
     );
   }
 
-  PopupMenuButton<dynamic> optionMenu() {
+  PopupMenuButton<dynamic> optionMenu({
+    Function? onDelete,
+    Function? onEdit,
+  }) {
     return PopupMenuButton(
       onSelected: (value) async {
         FocusScope.of(context).unfocus();
         switch (value) {
           case 0:
+            onEdit!();
             break;
           case 1:
+            onDelete!();
+
             break;
           default:
         }
@@ -199,7 +211,10 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
             leading: Icon(Iconsax.trash),
             title: Text(
               "Delete",
-              style: Theme.of(context).textTheme.button?.copyWith(color: Theme.of(context).colorScheme.error),
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  ?.copyWith(color: Theme.of(context).colorScheme.error),
             ),
           ),
         ),

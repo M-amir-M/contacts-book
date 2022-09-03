@@ -19,4 +19,17 @@ class ContactDetailViewModel extends BaseViewModel {
     LogDebug.info(value: "${id}");
     notifyListeners();
   }
+
+  Future deleteContact() async {
+    setState(NetworkState.BUSY);
+    var result = await _contactsRepo.deleteContact(contact!);
+    if (result.success) {
+      Get.offNamed(RoutePath.contactList);
+      setState(NetworkState.COMPLETE);
+    } else {
+      ToastUtil.showErrorToast(message: result.parseAllErrors().message);
+      setState(NetworkState.ERROR);
+    }
+    notifyListeners();
+  }
 }

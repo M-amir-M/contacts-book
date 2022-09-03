@@ -27,6 +27,7 @@ class UIHelper {
   static double _VerticalSpaceSmall = _res.responsiveSize(4);
   static double _VerticalSpaceMedium = _res.responsiveSize(8);
   static double _VerticalSpaceLarge = _res.responsiveSize(16);
+  static double _VerticalSpaceXLarge = _res.responsiveSize(32);
 
   // Vertical spacing constants. Adjust to your liking.
   static double _HorizontalSpaceXSmall = _res.responsiveSize(2);
@@ -38,6 +39,7 @@ class UIHelper {
   static Widget verticalSpaceSmall = SizedBox(height: _VerticalSpaceSmall);
   static Widget verticalSpaceMedium = SizedBox(height: _VerticalSpaceMedium);
   static Widget verticalSpaceLarge = SizedBox(height: _VerticalSpaceLarge);
+  static Widget verticalSpaceXLarge = SizedBox(height: _VerticalSpaceXLarge);
 
   static Widget horizontalSpaceXSmall = SizedBox(width: _HorizontalSpaceXSmall);
   static Widget horizontalSpaceSmall = SizedBox(width: _HorizontalSpaceSmall);

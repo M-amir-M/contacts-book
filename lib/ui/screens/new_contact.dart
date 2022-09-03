@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:stdev/core/data/models/contact.dart';
+import 'package:stdev/core/utils/validator/validator.dart';
 import 'package:stdev/core/viewmodels/contact_detail.dart';
 import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/core/viewmodels/new_contact.dart';
@@ -28,7 +29,16 @@ class _NewContactPageState extends State<NewContactPage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<NewContactViewModel>(onModelReady: (model) async {
-      await model.getContactDetail(Get.parameters["id"]!);
+      String id = Get.parameters["id"]!;
+      if (id == "new") {
+      } else {
+        await model.getContactDetail(id);
+        firstNameController.text = model.contact!.firstName!;
+        lastNameController.text = model.contact!.lastName!;
+        phoneController.text = model.contact!.phone!;
+        emailController.text = model.contact!.email!;
+        notesController.text = model.contact!.notes!;
+      }
     }, builder: (context, model, index) {
       return DefaultTabController(
         length: 2,
@@ -36,117 +46,140 @@ class _NewContactPageState extends State<NewContactPage> {
           body: SingleChildScrollView(
             child: Form(
               key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  UIHelper.verticalSpaceLarge,
-                  CircleAvatar(
-                    radius: 60.0,
-                    backgroundImage: NetworkImage(
-                        "https://img.freepik.com/free-photo/profile-shot-aristocratic-girl-blouse-with-frill-lady-with-flowers-her-hair-posing-proudly-against-blue-wall_197531-14304.jpg"),
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                  ),
-                  UIHelper.verticalSpaceLarge,
-                  TextField(),
-                  UIHelper.verticalSpaceSmall,
-                  TextField(),
-                  UIHelper.verticalSpaceSmall,
-                  TextField(),
-                  UIHelper.verticalSpaceSmall,
-                  AppButton(
-                    child: Text(
-                      "Submit",
-                      style: Theme.of(context).textTheme.button,
+              child: Container(
+                padding: EdgeInsets.all(UIHelper.paddingLarge),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Iconsax.arrow_left_2),
+                        ),
+                        Spacer(),
+                      ],
                     ),
-                    onPressed: () {},
-                  ),
-                ],
+                    UIHelper.verticalSpaceLarge,
+                    CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage: NetworkImage(
+                          "https://img.freepik.com/free-photo/profile-shot-aristocratic-girl-blouse-with-frill-lady-with-flowers-her-hair-posing-proudly-against-blue-wall_197531-14304.jpg"),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
+                    UIHelper.verticalSpaceXLarge,
+                    TextFormField(
+                      controller: firstNameController,
+                      decoration: InputDecoration(
+                        label: Text("First Name"),
+                        prefix: Icon(Iconsax.user),
+                      ),
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(
+                            errorText: "First Name is required",
+                          ),
+                        ],
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    TextFormField(
+                      controller: lastNameController,
+                      decoration: InputDecoration(
+                        label: Text("Last Name"),
+                        prefix: Icon(Iconsax.user),
+                      ),
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(
+                            errorText: "Last Name is required",
+                          ),
+                        ],
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    TextFormField(
+                      controller: phoneController,
+                      decoration: InputDecoration(
+                        label: Text("Phone Number"),
+                        prefix: Icon(Iconsax.call),
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(
+                            errorText: "Phone Number is required",
+                          ),
+                        ],
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        label: Text("Email Address"),
+                        prefix: Icon(Iconsax.sms),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(
+                            errorText: "Email Address is required",
+                          ),
+                          EmailValidator(
+                            errorText: "Email Address is not correct",
+                          ),
+                        ],
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    TextFormField(
+                      controller: notesController,
+                      decoration: InputDecoration(
+                        label: Text("Notes"),
+                        prefix: Icon(Iconsax.note),
+                      ),
+                      maxLines: 3,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(
+                            errorText: "Notes is required",
+                          ),
+                        ],
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    AppButton(
+                      child: Text(
+                        "Submit",
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          model.contact = model.contact?.copyWith(
+                            firstName: firstNameController.text,
+                            lastName: lastNameController.text,
+                            phone: phoneController.text,
+                            email: emailController.text,
+                            notes: notesController.text,
+                          );
+                          model.contact?.id == null
+                              ? model.createContact()
+                              : model.editContact();
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       );
     });
-  }
-
-  Widget _cardDetail({
-    required Widget icon,
-    required String value,
-    required String lable,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: UIHelper.paddingMedium),
-      child: Row(
-        children: [
-          icon,
-          UIHelper.horizontalSpaceLarge,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "$value",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Text(
-                  "$lable",
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  PopupMenuButton<dynamic> optionMenu() {
-    return PopupMenuButton(
-      onSelected: (value) async {
-        FocusScope.of(context).unfocus();
-        switch (value) {
-          case 0:
-            break;
-          case 1:
-            break;
-          default:
-        }
-      },
-      icon: Icon(
-        Iconsax.more,
-        color: Colors.white,
-      ),
-      padding: EdgeInsets.all(UIHelper.paddingMedium),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
-      ),
-      itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-        PopupMenuItem(
-          value: 0,
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Icon(Iconsax.edit),
-            title: Text(
-              "Edit",
-              style: Theme.of(context).textTheme.button,
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          value: 0,
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Icon(Iconsax.trash),
-            title: Text(
-              "Delete",
-              style: Theme.of(context)
-                  .textTheme
-                  .button
-                  ?.copyWith(color: Theme.of(context).colorScheme.error),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }

@@ -7,32 +7,32 @@ import 'package:stdev/ui/styles/app_sizes.dart';
 class UIHelper {
   static Responsive _res = locator<Responsive>();
   // Vertical spacing for AppBar.
-  static double _VerticalSpaceAppBar = _res.responsiveSize(60);
+  static double _VerticalSpaceAppBar = _res.responsiveSize(64);
 
   static Widget verticalSpaceAppBar = SizedBox(height: _VerticalSpaceAppBar);
 
   // Horizontal padding
-  static double paddingXLarge = 60;
-  static double paddingLarge = 30;
-  static double paddingMedium = 15;
-  static double paddingSmall = 5;
-  static double paddingXSmall = 3;
+  static double paddingXLarge = 32;
+  static double paddingLarge = 16;
+  static double paddingMedium = 8;
+  static double paddingSmall = 4;
+  static double paddingXSmall = 2;
 
   // Radius
-  static double primaryRadius = 10;
-  static double secondrayRadius = 10;
+  static double primaryRadius = 8;
+  static double secondrayRadius = 16;
 
   // Vertical spacing constants. Adjust to your liking.
-  static double _VerticalSpaceXSmall = _res.responsiveSize(10);
-  static double _VerticalSpaceSmall = _res.responsiveSize(15);
-  static double _VerticalSpaceMedium = _res.responsiveSize(30);
-  static double _VerticalSpaceLarge = _res.responsiveSize(60);
+  static double _VerticalSpaceXSmall = _res.responsiveSize(2);
+  static double _VerticalSpaceSmall = _res.responsiveSize(4);
+  static double _VerticalSpaceMedium = _res.responsiveSize(8);
+  static double _VerticalSpaceLarge = _res.responsiveSize(16);
 
   // Vertical spacing constants. Adjust to your liking.
-  static double _HorizontalSpaceXSmall = _res.responsiveSize(10);
-  static double _HorizontalSpaceSmall = _res.responsiveSize(15);
-  static double _HorizontalSpaceMedium = _res.responsiveSize(30);
-  static double _HorizontalSpaceLarge = _res.responsiveSize(60);
+  static double _HorizontalSpaceXSmall = _res.responsiveSize(2);
+  static double _HorizontalSpaceSmall = _res.responsiveSize(4);
+  static double _HorizontalSpaceMedium = _res.responsiveSize(8);
+  static double _HorizontalSpaceLarge = _res.responsiveSize(16);
 
   static Widget verticalSpaceXSmall = SizedBox(height: _VerticalSpaceXSmall);
   static Widget verticalSpaceSmall = SizedBox(height: _VerticalSpaceSmall);

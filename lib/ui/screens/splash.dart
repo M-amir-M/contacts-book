@@ -23,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
       builder: (context, model, index) {
         return SafeArea(
           child: Scaffold(
-            backgroundColor: Color(0xFFFF6489),
             body: Stack(
               children: [
                 

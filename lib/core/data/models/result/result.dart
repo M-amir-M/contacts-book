@@ -100,7 +100,7 @@ class ResultParser {
         final jsonData = jsonDecode(data);
         return Result.fromJson(jsonData);
       } else {
-        return Result.fromJson(data);
+        return Result.fromJson({"data":data});
       }
     } catch (error, stack) {
       return Result(success: false, errors: [

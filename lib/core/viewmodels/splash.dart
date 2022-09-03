@@ -13,7 +13,7 @@ class SplashViewModel extends BaseViewModel {
 
   Future getConfiguration() async {
     // await _authRepo.getToken();
-    await Future.delayed(5.seconds);
+    await Future.delayed(2.seconds);
 
     await Get.offNamed(RoutePath.contactList);
   }

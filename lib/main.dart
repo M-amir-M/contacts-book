@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       translations: AppTranslation(),
       locale: Locale("en", "US"),
       navigatorKey: Get.key,
-      theme: AppThemeData.lightThemeData(),
+      theme: AppThemeData.darkThemeData(),
       initialRoute: RoutePath.splashRoute,
       getPages: AppRouter.pages,
       navigatorObservers: [

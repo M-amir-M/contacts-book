@@ -11,5 +11,8 @@ class ApiPath {
 
   // Auth
   static const String signin = '/auth/signup';
+
+  // Contacts
+  static const String contactList = '/contacts';
   
 }

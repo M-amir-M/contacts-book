@@ -23,11 +23,8 @@ class ApiService {
   static SharedPreferencesHelper? _preferencesHelper;
 
   //constructors
-  ApiService(
-     SharedPreferencesHelper preferencesHelper,
-    {bool logger = false}
-  ) {
-    _initFields(preferencesHelper,logger);
+  ApiService(SharedPreferencesHelper preferencesHelper, {bool logger = false}) {
+    _initFields(preferencesHelper, logger);
   }
 
   //main methods................................................................
@@ -39,10 +36,9 @@ class ApiService {
     //set default headers
     var token = await _preferencesHelper?.getToken();
 
-
     _options.headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+      'x-api-key': '62e3e6d11894fe7edea71921',
     };
 
     _tokenDio = DioProvider(
@@ -115,4 +111,15 @@ class ApiService {
     );
   }
 
+  //..........................................
+  // Contacts
+  //..........................................
+
+  Future<Result> getContactList({Map<String, dynamic>? paramaters}) async {
+    return await _dio!.requestApi(
+      ApiPath.contactList,
+      DioProvider.GET_METHOD,
+      queryParameters: paramaters,
+    );
+  }
 }

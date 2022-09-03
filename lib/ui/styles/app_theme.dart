@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stdev/ui/styles/app_sizes.dart';
+import 'package:stdev/ui/styles/helper.dart';
 
 List<BoxShadow> defaultButtonBoxShadow(BuildContext context, {Color? color}) =>
     [
@@ -45,7 +46,7 @@ class AppThemeData {
         colorScheme: colorScheme ?? AppColorData.darkColorScheme,
         focusColor: focusColor ?? AppColorData.darkFocusColor,
         dividerColor: dividerColor ?? AppColorData.darkDividerColor,
-        languageCode: languageCode ?? "fa",
+        languageCode: languageCode ?? "en",
         brightness: Brightness.dark,
       );
 
@@ -116,29 +117,31 @@ class AppThemeData {
       cardTheme: CardTheme(
         color: _colorScheme.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
         ),
         elevation: 0,
       ),
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: _colorScheme.secondary,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
-            color: _colorScheme.background,
+            color: _colorScheme.secondary,
           ),
           gapPadding: 1,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
-            color: _colorScheme.background,
+            color: _colorScheme.secondary,
           ),
           gapPadding: 1,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
             color: _colorScheme.primary,
@@ -146,15 +149,15 @@ class AppThemeData {
           gapPadding: 1,
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
-            color: _colorScheme.surface,
+            color: _colorScheme.secondary,
           ),
           gapPadding: 1,
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
             color: _colorScheme.error,
@@ -162,7 +165,7 @@ class AppThemeData {
           gapPadding: 1,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UIHelper.primaryRadius),
           borderSide: BorderSide(
             width: 1,
             color: _colorScheme.error.withOpacity(0.7),
@@ -222,7 +225,7 @@ class AppColorData {
   static const ColorScheme darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
     primary: Color(0xFF70CF98),
-    secondary: Color(0xFF828282),
+    secondary: Color(0xFF3B4240),
     background: Color(0xFF1A2421),
     surface: Color(0xFF26302C),
     error: Color(0xFFe51c23),
@@ -254,6 +257,7 @@ class _AppTextThemeData {
   static const regular = FontWeight.w300;
   static const medium = FontWeight.w500;
   static const semiBold = FontWeight.w600;
+  static const bold = FontWeight.bold;
 
   static TextTheme defaultTextTheme(ColorScheme scheme) => TextTheme(
         headline1: GoogleFonts.poppins(
@@ -274,50 +278,50 @@ class _AppTextThemeData {
           color: scheme.onSurface,
         ),
         headline4: GoogleFonts.poppins(
-          fontSize: 32,
-          fontWeight: regular,
+          fontSize: SizeHelper.res(24),
+          fontWeight: semiBold,
           letterSpacing: 0.25,
           color: scheme.onSurface,
         ),
         headline5: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(18),
-          fontWeight: regular,
-          //very_light_pink
+          fontSize: SizeHelper.res(20),
+          fontWeight: semiBold,
           color: scheme.onSurface,
         ),
         headline6: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(14),
-          fontWeight: semiBold,
+          fontSize: SizeHelper.res(18),
+          fontWeight: medium,
           letterSpacing: 0.15,
-          //very_light_pink
           color: scheme.onSurface,
         ),
         subtitle1: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(18),
+          fontSize: SizeHelper.res(16),
           fontWeight: regular,
-          // letterSpacing: 0.15,
-          //very_light_pink
+          color: scheme.onSurface,
+        ),
+        subtitle2: GoogleFonts.poppins(
+          fontSize: SizeHelper.res(14),
+          fontWeight: medium,
           color: scheme.onSurface,
         ),
         bodyText1: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(12),
+          fontSize: SizeHelper.res(16),
           fontWeight: regular,
           letterSpacing: 0.25,
           color: scheme.onSurface,
         ),
         //Text Style 2
         bodyText2: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(11),
+          fontSize: SizeHelper.res(14),
           fontWeight: regular,
           letterSpacing: 0.5,
           height: 1.8,
-          //very_light_pink
           color: scheme.onSurface,
         ),
         //Text Style 3
         button: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(20),
-          fontWeight: semiBold,
+          fontSize: SizeHelper.res(14),
+          fontWeight: medium,
           letterSpacing: 1.25,
           //card
           color: AppColorData.darkFillColor,
@@ -332,7 +336,7 @@ class _AppTextThemeData {
         ),
         //Text Style 7
         overline: GoogleFonts.poppins(
-          fontSize: SizeHelper.res(12),
+          fontSize: SizeHelper.res(10),
           fontWeight: regular,
           letterSpacing: 1.5,
           //very_light_pink

@@ -1,5 +1,5 @@
 class Assets {
   Assets._();
 
-  static String loadinMatch = "assets/images/logo.png";
+  static String logo = "assets/images/logo.svg";
 }

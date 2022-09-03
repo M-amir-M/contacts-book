@@ -1,9 +1,12 @@
 
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stdev/core/data/models/user.dart';
 
 /// helper class for store and read simple data from SharedPreferences
 class SharedPreferencesHelper {
-  static final String _kToken = 'token';
+  static final String _kAuth = 'Auth';
 
 
 
@@ -11,34 +14,30 @@ class SharedPreferencesHelper {
       await SharedPreferences.getInstance();
 
 
-  String? _token;
-  String? get token => _token;
-
-  ///setting token to SharedPreferences
-  Future<bool> setToken({required String? token}) async {
-    if (token == null) {
+  ///setting Auth user to SharedPreferences
+  Future<bool> setAuth({required UserModel? user}) async {
+    if (user == null) {
       return false;
     }
-    _token = token;
     final SharedPreferences prefs = await _getSharedPreferences;
-    var result = await prefs.setString(_kToken, token);
+    var result = await prefs.setString(_kAuth, jsonEncode(user.toJson()));
     return result;
   }
 
-  ///get token from SharedPreferences
-  Future<String?> getToken() async {
+  ///get Auth user from SharedPreferences
+  Future<UserModel?> getAuth() async {
     final SharedPreferences prefs = await _getSharedPreferences;
 
-    String? token = prefs.getString(_kToken);
+    String? user = prefs.getString(_kAuth);
 
-    return token;
+
+    return  user != null ? UserModel.fromJson(jsonDecode(user)) : null;
   }
 
-  ///remove token from SharedPreferences
-  Future<bool> removeToken() async {
+  ///remove Auth user from SharedPreferences
+  Future<bool> removeAuth() async {
     final SharedPreferences prefs = await _getSharedPreferences;
-    _token = null;
-    final result = await prefs.remove(_kToken);
+    final result = await prefs.remove(_kAuth);
 
     return result;
   }

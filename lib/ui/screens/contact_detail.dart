@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:stdev/core/data/models/contact.dart';
@@ -7,6 +8,7 @@ import 'package:stdev/core/viewmodels/contact_detail.dart';
 import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/ui/screens/base_view.dart';
 import 'package:stdev/ui/styles/helper.dart';
+import 'package:stdev/ui/widgets/loading/circle/circle.dart';
 
 class ContactDetailPage extends StatefulWidget {
   const ContactDetailPage({Key? key}) : super(key: key);
@@ -21,6 +23,13 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
     return BaseView<ContactDetailViewModel>(onModelReady: (model) async {
       await model.getContactDetail(Get.parameters["id"]!);
     }, builder: (context, model, index) {
+      if (model.isLoading) {
+        return Scaffold(
+          body: Center(
+            child: CircleSpin(),
+          ),
+        );
+      }
       return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -34,18 +43,41 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.back();
+                        Get.back(result: true);
                       },
                       icon: Icon(Iconsax.arrow_left_2),
                     ),
                     IconButton(
                       onPressed: () {},
                       icon: optionMenu(
-                          onDelete: () {},
-                          onEdit: () {
-                            Get.toNamed(RoutePath.editNewCntact
-                                .replaceAll(":id", model.contact!.id!));
-                          }),
+                        onDelete: () {
+                          Get.defaultDialog(
+                            navigatorKey: Get.key,
+                            content: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Do you want to delete contact?",
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ),
+                            title: "Delete",
+                            textConfirm: "Yes",
+                            confirmTextColor:
+                                Theme.of(context).colorScheme.primary,
+                            textCancel: "No",
+                            cancelTextColor:
+                                Theme.of(context).colorScheme.error,
+                            onConfirm: () {
+                              Get.back();
+                              model.deleteContact();
+                            },
+                          );
+                        },
+                        onEdit: () {
+                          Get.toNamed(RoutePath.editNewCntact
+                              .replaceAll(":id", model.contact!.id!));
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -55,7 +87,7 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
                 child: CircleAvatar(
                   radius: 60.0,
                   backgroundImage: NetworkImage(
-                      "https://img.freepik.com/free-photo/profile-shot-aristocratic-girl-blouse-with-frill-lady-with-flowers-her-hair-posing-proudly-against-blue-wall_197531-14304.jpg"),
+                      "${model.contact?.avatar}"),
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -205,7 +237,7 @@ class _ContactDetailPageState extends State<ContactDetailPage> {
           ),
         ),
         PopupMenuItem(
-          value: 0,
+          value: 1,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Icon(Iconsax.trash),

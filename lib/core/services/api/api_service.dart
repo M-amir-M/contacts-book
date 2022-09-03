@@ -34,7 +34,6 @@ class ApiService {
       _preferencesHelper = helper;
     }
     //set default headers
-    var token = await _preferencesHelper?.getToken();
 
     _options.headers = {
       'Accept': 'application/json',
@@ -78,10 +77,10 @@ class ApiService {
             if (error.type == DioErrorType.response &&
                 error.response?.data != null) {
               if (error.response?.statusCode == 401) {
-                String? token = await _preferencesHelper?.getToken();
+                var token = await _preferencesHelper?.getAuth();
                 if (token != null) {
-                  await _preferencesHelper?.removeToken();
-                  // await _authRepo?.logout();
+                  await _preferencesHelper?.removeAuth();
+                  
                 }
                 await Get.offNamed(RoutePath.signIn);
               }

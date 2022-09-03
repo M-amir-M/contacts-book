@@ -5,7 +5,7 @@ class ContactModel {
     this.lastName,
     this.email,
     this.notes,
-    this.picture,
+    this.picture = const [],
     this.phone,
   });
 
@@ -14,8 +14,11 @@ class ContactModel {
   final String? lastName;
   final String? email;
   final String? notes;
-  final List<String>? picture;
+  final List<String> picture;
   final String? phone;
+  String get avatar => picture.length > 0
+      ? picture.first
+      : "https://img.freepik.com/free-photo/profile-shot-aristocratic-girl-blouse-with-frill-lady-with-flowers-her-hair-posing-proudly-against-blue-wall_197531-14304.jpg";
 
   String get fullName => "${firstName ?? ''} ${lastName ?? ''}";
 
@@ -45,7 +48,7 @@ class ContactModel {
         email: json["email"] == null ? null : json["email"],
         notes: json["notes"] == null ? null : json["notes"],
         picture: json["picture"] == null
-            ? null
+            ? []
             : List<String>.from(json["picture"].map((x) => x)),
         phone: json["phone"] == null ? null : json["phone"],
       );
@@ -56,8 +59,7 @@ class ContactModel {
         "lastName": lastName == null ? null : lastName,
         "email": email == null ? null : email,
         "notes": notes == null ? null : notes,
-        "picture":
-            picture == null ? null : List<dynamic>.from(picture!.map((x) => x)),
+        "picture": List<dynamic>.from(picture.map((x) => x)),
         "phone": phone == null ? null : phone,
       };
 }

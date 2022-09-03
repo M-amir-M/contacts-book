@@ -33,8 +33,8 @@ Color getShadowColor(BuildContext context) {
 class AppThemeData {
   const AppThemeData._();
 
-  static const Color skeletonBaseColor = Color(0xFFbdbdbd);
-  static const Color skeletonHighlightColor = Color(0xffd8d8d8);
+  static const Color skeletonBaseColor = Color(0xFF656871);
+  static const Color skeletonHighlightColor = Color(0xff313236);
 
   static ThemeData darkThemeData({
     ColorScheme? colorScheme,

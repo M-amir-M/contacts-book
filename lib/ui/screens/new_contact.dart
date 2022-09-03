@@ -23,6 +23,7 @@ class _NewContactPageState extends State<NewContactPage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController notesController = TextEditingController();
+  TextEditingController pictureController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -38,6 +39,7 @@ class _NewContactPageState extends State<NewContactPage> {
         phoneController.text = model.contact!.phone!;
         emailController.text = model.contact!.email!;
         notesController.text = model.contact!.notes!;
+        pictureController.text = model.contact!.picture.first;
       }
     }, builder: (context, model, index) {
       return DefaultTabController(
@@ -66,8 +68,7 @@ class _NewContactPageState extends State<NewContactPage> {
                     UIHelper.verticalSpaceLarge,
                     CircleAvatar(
                       radius: 60.0,
-                      backgroundImage: NetworkImage(
-                          "https://img.freepik.com/free-photo/profile-shot-aristocratic-girl-blouse-with-frill-lady-with-flowers-her-hair-posing-proudly-against-blue-wall_197531-14304.jpg"),
+                      backgroundImage: NetworkImage("${model.contact?.avatar}"),
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     UIHelper.verticalSpaceXLarge,
@@ -75,7 +76,7 @@ class _NewContactPageState extends State<NewContactPage> {
                       controller: firstNameController,
                       decoration: InputDecoration(
                         label: Text("First Name"),
-                        prefix: Icon(Iconsax.user),
+                        prefixIcon: Icon(Iconsax.user),
                       ),
                       validator: MultiValidator(
                         [
@@ -90,7 +91,7 @@ class _NewContactPageState extends State<NewContactPage> {
                       controller: lastNameController,
                       decoration: InputDecoration(
                         label: Text("Last Name"),
-                        prefix: Icon(Iconsax.user),
+                        prefixIcon: Icon(Iconsax.user),
                       ),
                       validator: MultiValidator(
                         [
@@ -105,7 +106,7 @@ class _NewContactPageState extends State<NewContactPage> {
                       controller: phoneController,
                       decoration: InputDecoration(
                         label: Text("Phone Number"),
-                        prefix: Icon(Iconsax.call),
+                        prefixIcon: Icon(Iconsax.call),
                       ),
                       keyboardType: TextInputType.number,
                       validator: MultiValidator(
@@ -121,7 +122,7 @@ class _NewContactPageState extends State<NewContactPage> {
                       controller: emailController,
                       decoration: InputDecoration(
                         label: Text("Email Address"),
-                        prefix: Icon(Iconsax.sms),
+                        prefixIcon: Icon(Iconsax.sms),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: MultiValidator(
@@ -137,10 +138,18 @@ class _NewContactPageState extends State<NewContactPage> {
                     ),
                     UIHelper.verticalSpaceLarge,
                     TextFormField(
+                      controller: pictureController,
+                      decoration: InputDecoration(
+                        label: Text("Picture Address"),
+                        prefixIcon: Icon(Iconsax.link),
+                      ),
+                    ),
+                    UIHelper.verticalSpaceLarge,
+                    TextFormField(
                       controller: notesController,
                       decoration: InputDecoration(
                         label: Text("Notes"),
-                        prefix: Icon(Iconsax.note),
+                        prefixIcon: Icon(Iconsax.note),
                       ),
                       maxLines: 3,
                       keyboardType: TextInputType.emailAddress,
@@ -158,15 +167,18 @@ class _NewContactPageState extends State<NewContactPage> {
                         "Submit",
                         style: Theme.of(context).textTheme.button,
                       ),
+                      isLoading: model.isLoading,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           model.contact = model.contact?.copyWith(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            phone: phoneController.text,
-                            email: emailController.text,
-                            notes: notesController.text,
-                          );
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              phone: phoneController.text,
+                              email: emailController.text,
+                              notes: notesController.text,
+                              picture: pictureController.text.isEmpty ? []:[
+                                pictureController.text,
+                              ]);
                           model.contact?.id == null
                               ? model.createContact()
                               : model.editContact();

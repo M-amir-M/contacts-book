@@ -1,7 +1,9 @@
+import 'package:stdev/core/data/repositories/authentication.dart';
 import 'package:stdev/core/data/repositories/contacts.dart';
 import 'package:stdev/core/services/api/api_service.dart';
 import 'package:stdev/core/services/connectivity/connectivity.dart';
 import 'package:stdev/core/services/shared_preferences/shared_preferences.dart';
+import 'package:stdev/core/viewmodels/auth.dart';
 import 'package:stdev/core/viewmodels/contact_detail.dart';
 import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/core/viewmodels/new_contact.dart';
@@ -25,7 +27,7 @@ void setupLocator() {
   
 
   //repoitories
-  // locator.registerLazySingleton(() => AuthRepository());
+  locator.registerLazySingleton(() => AuthRepository());
   locator.registerLazySingleton(() => ContactsRepository());
 
 
@@ -34,6 +36,7 @@ void setupLocator() {
   locator.registerFactory(() => ContactsViewModel());
   locator.registerFactory(() => ContactDetailViewModel());
   locator.registerFactory(() => NewContactViewModel());
+  locator.registerFactory(() => AuthViewModel());
 }
 
 resetLocator() async {

@@ -257,7 +257,6 @@ class _AppTextThemeData {
   static const regular = FontWeight.w300;
   static const medium = FontWeight.w500;
   static const semiBold = FontWeight.w600;
-  static const bold = FontWeight.bold;
 
   static TextTheme defaultTextTheme(ColorScheme scheme) => TextTheme(
         headline1: GoogleFonts.poppins(

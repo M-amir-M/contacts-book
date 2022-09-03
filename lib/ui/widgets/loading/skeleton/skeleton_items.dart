@@ -61,6 +61,5 @@ class ContactListSkeleton extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

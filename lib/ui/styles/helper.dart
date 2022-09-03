@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stdev/core/locator.dart';
 import 'package:stdev/core/services/responsive/responsive.dart';
-import 'package:stdev/ui/styles/app_sizes.dart';
 
 /// Contains useful consts to reduce boilerplate and duplicate code
 class UIHelper {

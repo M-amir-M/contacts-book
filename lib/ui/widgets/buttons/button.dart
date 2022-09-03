@@ -38,7 +38,7 @@ class AppButton extends StatefulWidget {
 }
 
 class _AppButtonState extends State<AppButton> {
-  bool get enable => (widget.onPressed != null && !widget.isDisable);
+  bool get enable => ( !widget.isDisable);
 
   bool get disable => !enable;
 

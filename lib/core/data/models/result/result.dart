@@ -6,8 +6,8 @@ import 'package:stdev/core/data/models/error/error.dart';
 class Result {
   final bool success;
   final List<AppError> errors;
-  final dynamic? data;
-  final dynamic? meta;
+  final dynamic data;
+  final dynamic meta;
   final int? statusCode;
   final String? message;
 
@@ -23,8 +23,8 @@ class Result {
   Result copyWith({
     bool? success,
     List<AppError>? errors,
-    dynamic? data,
-    dynamic? meta,
+    dynamic data,
+    dynamic meta,
     int? statusCode,
     String? message,
   }) =>

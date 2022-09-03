@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:stdev/core/data/models/contact.dart';
 import 'package:stdev/core/routes/route_path.dart';
 import 'package:stdev/core/viewmodels/contact_detail.dart';
-import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/ui/screens/base_view.dart';
 import 'package:stdev/ui/styles/helper.dart';
 import 'package:stdev/ui/widgets/loading/circle/circle.dart';

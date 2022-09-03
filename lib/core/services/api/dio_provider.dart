@@ -20,9 +20,7 @@ class DioProvider<T> {
     this.parseError, {
     BaseOptions? baseOptions,
     bool logger = true,
-  })  : assert(_baseUrl != null),
-        assert(parseResponse != null),
-        assert(parseError != null) {
+  })  : assert(_baseUrl != null) {
     baseOptions?.baseUrl = _baseUrl ?? baseOptions.baseUrl;
     _dioInstance = Dio(
       baseOptions,
@@ -59,15 +57,11 @@ class DioProvider<T> {
   //Methods.....................................................................
 
   void lock() {
-    _dioInstance?.interceptors.responseLock.lock();
-    _dioInstance?.interceptors.requestLock.lock();
-    _dioInstance?.interceptors.errorLock.lock();
+    
   }
 
   void unlock() {
-    _dioInstance?.interceptors.responseLock.unlock();
-    _dioInstance?.interceptors.requestLock.unlock();
-    _dioInstance?.interceptors.errorLock.unlock();
+    
   }
 
   void cancelRequestWithToken(CancelToken token, String message) {

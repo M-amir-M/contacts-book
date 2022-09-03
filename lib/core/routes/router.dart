@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stdev/core/routes/route_path.dart';
 import 'package:stdev/ui/screens/contact_detail.dart';

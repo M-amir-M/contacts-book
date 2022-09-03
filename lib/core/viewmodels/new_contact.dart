@@ -5,11 +5,9 @@ import 'package:stdev/core/data/repositories/contacts.dart';
 import 'package:stdev/core/enums/network_state.dart';
 import 'package:stdev/core/locator.dart';
 import 'package:stdev/core/routes/route_path.dart';
-import 'package:stdev/core/utils/log.dart';
 import 'package:stdev/core/utils/toast.dart';
 import 'package:stdev/core/viewmodels/base_view_model.dart';
-import 'package:stdev/ui/screens/contact_detail.dart';
-import 'package:stdev/ui/screens/contacts.dart';
+
 
 class NewContactViewModel extends BaseViewModel {
   ContactsRepository _contactsRepo = locator<ContactsRepository>();

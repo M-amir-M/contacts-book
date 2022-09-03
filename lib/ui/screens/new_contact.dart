@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:stdev/core/data/models/contact.dart';
 import 'package:stdev/core/utils/validator/validator.dart';
-import 'package:stdev/core/viewmodels/contact_detail.dart';
-import 'package:stdev/core/viewmodels/contacts.dart';
 import 'package:stdev/core/viewmodels/new_contact.dart';
 import 'package:stdev/ui/screens/base_view.dart';
 import 'package:stdev/ui/styles/helper.dart';
